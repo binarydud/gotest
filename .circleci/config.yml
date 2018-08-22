@@ -14,10 +14,11 @@ jobs:
   setup_project:
     <<: *DEFAULTS
     steps:
-        - run: ls -latr
-        - persist_to_workspace:
-            root: /go/src/github.com/binarydud
-            paths:
+      - checkout
+      - run: ls -latr
+      - persist_to_workspace:
+          root: /go/src/github.com/binarydud
+          paths:
               - .
   build:
     <<: *DEFAULTS
