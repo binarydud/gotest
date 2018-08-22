@@ -1,9 +1,10 @@
-defaults: &defaults
-  environment:
-    - GOCACHE: "/tmp/go/cache"
-    - DEP_VERSION: 0.4.1
-  #working_directory: /go/src/github.com/racker/janus-passport
-  working_directory: /go/src/github.com/binarydud
+aliases:
+  - defaults: &defaults
+    environment:
+      - GOCACHE: "/tmp/go/cache"
+      - DEP_VERSION: 0.4.1
+    #working_directory: /go/src/github.com/racker/janus-passport
+    working_directory: /go/src/github.com/binarydud
 
   version: 2
   jobs:
