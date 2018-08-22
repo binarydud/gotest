@@ -1,25 +1,26 @@
-aliases:
-  - defaults: &defaults
-    environment:
-      - GOCACHE: "/tmp/go/cache"
-      - DEP_VERSION: 0.4.1
-    #working_directory: /go/src/github.com/racker/janus-passport
-    working_directory: /go/src/github.com/binarydud
+defaults: &defaults
+  environment:
+    - GOCACHE: "/tmp/go/cache"
+    - DEP_VERSION: 0.4.1
+  #working_directory: /go/src/github.com/racker/janus-passport
+  working_directory: /go/src/github.com/binarydud
 
   version: 2
   jobs:
     setup:
       <<: *defaults
-      - run: ls -latr
-      - persist_to_workspace:
-          root: /go/src/github.com/binarydud
-          paths:
-            - .
+      steps:
+        - run: ls -latr
+        - persist_to_workspace:
+            root: /go/src/github.com/binarydud
+            paths:
+              - .
         
     build:
       <<: *defaults
-      - attach_workspace:
-          at: /go/src/github.com/binarydud
+      steps:
+        - attach_workspace:
+            at: /go/src/github.com/binarydud
 
 workflows:
   version: 2
