@@ -11,7 +11,7 @@ defaults: &DEFAULTS
 
 version: 2
 jobs:
-  setup_project:
+  setup:
     <<: *DEFAULTS
     steps:
       - checkout
@@ -31,7 +31,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - setup_project
+      - setup
       - build:
           requires:
-            - setup_project
+            - setup
