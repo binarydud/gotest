@@ -1,4 +1,4 @@
-defaults: &defaults
+defaults: &DEFAULTS
   environment:
     - GOCACHE: "/tmp/go/cache"
     - DEP_VERSION: 0.4.1
@@ -8,7 +8,7 @@ defaults: &defaults
   version: 2
   jobs:
     setup:
-      <<: *defaults
+      <<: *DEFAULTS
       steps:
         - run: ls -latr
         - persist_to_workspace:
@@ -17,7 +17,7 @@ defaults: &defaults
               - .
         
     build:
-      <<: *defaults
+      <<: *DEFAULTS
       steps:
         - attach_workspace:
             at: /go/src/github.com/binarydud
