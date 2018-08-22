@@ -16,16 +16,31 @@ jobs:
     steps:
       - checkout
       - run: ls -latr
+      - restore_cache:
+          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
       - persist_to_workspace:
           root: /go/src/github.com/binarydud
           paths:
               - .
+      - run:
+          name: download-libraries
+          command: |
+            if [ ! -d /go/src/github.com/binarydud/gotest/vendor ]; then
+                curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o /go/bin/dep
+                chmod +x /go/bin/dep
+                /go/bin/dep ensure
+            fi
+      - save_cache:
+          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+          paths:
+              - /go/src/github.com/binarydud/gotest/vendor
   build:
     <<: *DEFAULTS
     steps:
       - attach_workspace:
           at: /go/src/github.com/binarydud
       - run: ls -latr
+      - run: ls -latr vendor
 
 workflows:
   version: 2
