@@ -1,7 +1,7 @@
 defaults: &DEFAULTS
   working_directory: /go/src/github.com/binarydud
   docker:
-    - image: circleci/golang:1.10.0
+    - image: circleci/golang:1.10.3-stretch-node
   environment:
     GOCACHE: /tmp
     DEP_VERSION: 0.4.1
