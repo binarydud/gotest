@@ -5,9 +5,6 @@ defaults: &DEFAULTS
   environment:
     GOCACHE: /tmp
     DEP_VERSION: 0.4.1
-  
-  #working_directory: /go/src/github.com/racker/janus-passport
-  
 
 version: 2
 jobs:
