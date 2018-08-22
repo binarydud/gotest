@@ -1,32 +1,36 @@
 defaults: &DEFAULTS
-  environment:
-    - GOCACHE: "/tmp/go/cache"
-    - DEP_VERSION: 0.4.1
-  #working_directory: /go/src/github.com/racker/janus-passport
   working_directory: /go/src/github.com/binarydud
+  docker:
+    - image: circleci/golang:1.10.0
+  environment:
+    GOCACHE: /tmp
+    DEP_VERSION: 0.4.1
+  
+  #working_directory: /go/src/github.com/racker/janus-passport
+  
 
-  version: 2
-  jobs:
-    setup:
-      <<: *DEFAULTS
-      steps:
+version: 2
+jobs:
+  setup_project:
+    <<: *DEFAULTS
+    steps:
         - run: ls -latr
         - persist_to_workspace:
             root: /go/src/github.com/binarydud
             paths:
               - .
-        
-    build:
-      <<: *DEFAULTS
-      steps:
-        - attach_workspace:
-            at: /go/src/github.com/binarydud
+  build:
+    <<: *DEFAULTS
+    steps:
+      - attach_workspace:
+          at: /go/src/github.com/binarydud
+      - run: ls -latr
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - setup
+      - setup_project
       - build:
           requires:
-            - setup
+            - setup_project
