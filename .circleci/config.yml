@@ -1,5 +1,5 @@
 defaults: &DEFAULTS
-  working_directory: /go/src/github.com/binarydud
+  working_directory: /go/src/github.com/binarydud/gotest
   docker:
     - image: circleci/golang:1.10.3-stretch-node
   environment:
@@ -31,16 +31,17 @@ jobs:
           paths:
               - /go/src/github.com/binarydud/gotest/vendor
       - persist_to_workspace:
-          root: /go/src/github.com/binarydud
+          root: /go/src/github.com/binarydud/gotest
           paths:
               - .
   build:
     <<: *DEFAULTS
     steps:
       - attach_workspace:
-          at: /go/src/github.com/binarydud
-      - run: ls -latr
+          at: /go/src/github.com/binarydud/gotest
       - run: ls -latr vendor
+      - run: go build
+      - run: ls -latr
 
 workflows:
   version: 2
